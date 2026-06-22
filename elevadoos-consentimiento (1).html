@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consentimiento de Imagen · Elevadoos</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --purple: #534AB7;
+    --purple-light: #EEEDFE;
+    --purple-mid: #7F77DD;
+    --green: #3B6D11;
+    --green-light: #EAF3DE;
+    --red: #A32D2D;
+    --red-light: #FCEBEB;
+    --gray-50: #F8F8F6;
+    --gray-100: #EFEFED;
+    --gray-200: #D3D1C7;
+    --gray-400: #888780;
+    --gray-700: #444441;
+    --gray-900: #1A1A18;
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--gray-50);
+    color: var(--gray-900);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* HEADER */
+  .header {
+    background: #fff;
+    border-bottom: 1px solid var(--gray-100);
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .logo {
+    width: 36px; height: 36px;
+    background: var(--purple);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 600; font-size: 14px;
+    letter-spacing: 0.02em;
+  }
+  .header-text { font-size: 15px; font-weight: 500; color: var(--gray-900); }
+  .header-sub { font-size: 12px; color: var(--gray-400); }
+  .badge-pendiente {
+    margin-left: auto;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    background: #FAEEDA;
+    color: #633806;
+    font-weight: 500;
+  }
+
+  /* LAYOUT */
+  .container { max-width: 680px; margin: 0 auto; padding: 1.5rem 1rem 4rem; }
+
+  /* CONTRATO */
+  .contrato-box {
+    background: #fff;
+    border: 1px solid var(--gray-100);
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+  }
+  .contrato-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .contrato-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gray-900);
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+  .contrato-header p { font-size: 13px; color: var(--gray-400); }
+  .contrato-scroll {
+    max-height: 260px;
+    overflow-y: auto;
+    padding: 1.25rem 1.5rem;
+    font-size: 13px;
+    color: var(--gray-700);
+    line-height: 1.7;
+  }
+  .contrato-scroll h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin: 1rem 0 0.35rem;
+  }
+  .contrato-scroll h3:first-child { margin-top: 0; }
+  .contrato-scroll p { margin-bottom: 0.5rem; }
+  .contrato-scroll ul { padding-left: 1.25rem; margin-bottom: 0.5rem; }
+  .contrato-scroll li { margin-bottom: 0.25rem; }
+  .scroll-fade {
+    height: 40px;
+    background: linear-gradient(transparent, #fff);
+    margin-top: -40px;
+    position: relative;
+    pointer-events: none;
+  }
+
+  /* SECTIONS */
+  .section-card {
+    background: #fff;
+    border: 1px solid var(--gray-100);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--purple);
+    margin-bottom: 1rem;
+  }
+
+  /* INPUTS */
+  .field-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+  .field-group.single { grid-template-columns: 1fr; }
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  label { font-size: 12px; font-weight: 500; color: var(--gray-700); }
+  input[type=text], input[type=date], input[type=email] {
+    padding: 9px 12px;
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    color: var(--gray-900);
+    background: #fff;
+    transition: border-color 0.15s;
+    width: 100%;
+  }
+  input:focus { outline: none; border-color: var(--purple-mid); box-shadow: 0 0 0 3px var(--purple-light); }
+
+  /* MENORES */
+  .menor-card {
+    border: 1px solid var(--gray-100);
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    background: var(--gray-50);
+    position: relative;
+  }
+  .menor-card .field-group { margin-bottom: 0.75rem; }
+  .menor-remove {
+    position: absolute; top: 10px; right: 10px;
+    background: none; border: none; cursor: pointer;
+    font-size: 18px; color: var(--gray-400); line-height: 1;
+    padding: 2px 6px;
+  }
+  .menor-remove:hover { color: var(--red); }
+  .auth-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .auth-label { font-size: 12px; color: var(--gray-700); font-weight: 500; min-width: 120px; }
+  .auth-btns { display: flex; gap: 6px; }
+  .auth-btn {
+    padding: 5px 14px; font-size: 12px; font-weight: 500;
+    border: 1px solid var(--gray-200); border-radius: 20px;
+    cursor: pointer; background: #fff; color: var(--gray-700);
+    font-family: 'Inter', sans-serif; transition: all 0.15s;
+  }
+  .auth-btn.si { background: var(--green-light); border-color: #639922; color: var(--green); }
+  .auth-btn.no { background: var(--red-light); border-color: #E24B4A; color: var(--red); }
+  .add-menor-btn {
+    width: 100%; padding: 10px;
+    border: 1px dashed var(--gray-200); border-radius: var(--radius-sm);
+    background: none; cursor: pointer; font-size: 13px;
+    color: var(--purple); font-family: 'Inter', sans-serif;
+    font-weight: 500; transition: all 0.15s;
+  }
+  .add-menor-btn:hover { background: var(--purple-light); border-color: var(--purple-mid); }
+
+  /* FIRMA */
+  .firma-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .firma-box { }
+  .firma-label { font-size: 12px; font-weight: 500; color: var(--gray-700); margin-bottom: 6px; }
+  .canvas-container {
+    border: 1px solid var(--gray-200); border-radius: var(--radius-sm);
+    background: var(--gray-50); position: relative; overflow: hidden;
+  }
+  canvas { display: block; touch-action: none; cursor: crosshair; width: 100%; }
+  .canvas-clear {
+    position: absolute; top: 6px; right: 6px;
+    font-size: 11px; padding: 3px 8px;
+    border: 1px solid var(--gray-200); border-radius: 4px;
+    background: #fff; cursor: pointer; color: var(--gray-400);
+    font-family: 'Inter', sans-serif;
+  }
+  .canvas-hint { font-size: 11px; color: var(--gray-400); text-align: center; margin-top: 5px; }
+
+  /* SUBMIT */
+  .submit-area { margin-top: 1.5rem; }
+  .submit-btn {
+    width: 100%; padding: 14px;
+    background: var(--purple); color: #fff;
+    border: none; border-radius: var(--radius);
+    font-size: 15px; font-weight: 600;
+    font-family: 'Inter', sans-serif; cursor: pointer;
+    transition: background 0.15s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .submit-btn:hover { background: #3C3489; }
+  .submit-btn:disabled { background: var(--gray-200); color: var(--gray-400); cursor: not-allowed; }
+  .submit-note { font-size: 11px; color: var(--gray-400); text-align: center; margin-top: 8px; line-height: 1.5; }
+
+  /* SUCCESS */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 3rem 1.5rem;
+    background: #fff;
+    border: 1px solid var(--gray-100);
+    border-radius: var(--radius);
+  }
+  .success-icon {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--green-light);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 1.25rem;
+    font-size: 28px;
+  }
+  .success-screen h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; margin-bottom: 0.75rem; color: var(--gray-900);
+  }
+  .success-screen p { font-size: 14px; color: var(--gray-400); line-height: 1.6; }
+  .success-meta {
+    margin-top: 1.5rem; padding: 1rem;
+    background: var(--gray-50); border-radius: var(--radius-sm);
+    font-size: 12px; color: var(--gray-400); line-height: 1.8;
+  }
+
+  /* STATUS */
+  .status-msg {
+    display: none; padding: 10px 14px; border-radius: var(--radius-sm);
+    font-size: 13px; margin-top: 10px; font-weight: 500;
+  }
+  .status-msg.error { background: var(--red-light); color: var(--red); display: block; }
+  .status-msg.loading { background: var(--purple-light); color: var(--purple); display: block; }
+
+  @media (max-width: 480px) {
+    .field-group { grid-template-columns: 1fr; }
+    .firma-grid { grid-template-columns: 1fr; }
+    .container { padding: 1rem 0.75rem 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">EL</div>
+  <div>
+    <div class="header-text">Elevadoos</div>
+    <div class="header-sub">Consentimiento de imagen · Family &amp; Money</div>
+  </div>
+  <div class="badge-pendiente">⏳ Pendiente de firma</div>
+</div>
+
+<div class="container">
+
+  <!-- CONTRATO -->
+  <div class="contrato-box">
+    <div class="contrato-header">
+      <h1>Consentimiento de uso de imagen y datos personales</h1>
+      <p>Leed el documento completo antes de firmar</p>
+    </div>
+    <div class="contrato-scroll" id="contrato-scroll">
+      <p><strong>Responsable del tratamiento:</strong> Jaume Vidal Damas, ID F373595B · Camí del Pui 10, 2-4, AD700 Escaldes-Engordany (Andorra) · hola@elevadoo.com</p>
+
+      <h3>1) Objeto y alcance</h3>
+      <p>Mediante la firma de este documento, las personas adultas asistentes y quienes ostenten la patria potestad de los menores que les acompañan:</p>
+      <ul>
+        <li>Autorizan a Elevadoos a captar y utilizar su imagen, voz y nombre (fotografía, vídeo y/o audio) tomadas durante el evento <em>Family &amp; Money – Elevadoos</em>, con finalidad promocional y divulgativa.</li>
+        <li>Esta autorización incluye reproducción en web, redes sociales (Instagram, YouTube, TikTok), materiales de prensa, dossieres y anuncios pagados, sin venta ni cesión lucrativa a terceros no vinculados a Elevadoos.</li>
+      </ul>
+      <p>Ámbito temporal: autorización por tiempo indefinido y para todo el mundo, con posibilidad de revocación (sin efectos retroactivos sobre materiales ya publicados).</p>
+
+      <h3>2) Marco de protección de datos (RGPD)</h3>
+      <ul>
+        <li><strong>Base jurídica:</strong> consentimiento (art. 6.1.a RGPD) y, para menores, consentimiento de los representantes legales.</li>
+        <li><strong>Finalidad:</strong> promoción, difusión y documentación de las actividades de Elevadoos.</li>
+        <li><strong>Derechos:</strong> acceso, rectificación, supresión, limitación, oposición, portabilidad y revocación en cualquier momento en hola@elevadoo.com.</li>
+        <li><strong>Conservación:</strong> mientras la finalidad promocional esté vigente.</li>
+      </ul>
+
+      <h3>3) Menores de edad</h3>
+      <p>Los representantes legales otorgan o deniegan autorización expresa por cada menor en la sección correspondiente de este formulario. En caso de discrepancia entre progenitores, se aplicará el criterio más restrictivo.</p>
+
+      <h3>4) Captación y producción</h3>
+      <p>La captación será realizada por personal de Elevadoos y/o proveedores bajo contrato. No se garantiza la aparición individual; el enfoque puede incluir planos generales y grupales.</p>
+
+      <h3>5) Revocación</h3>
+      <p>Podéis revocar el consentimiento enviando un correo a hola@elevadoo.com. Elevadoos retirará el material no integrado en piezas cerradas y evitará nuevas publicaciones.</p>
+
+      <h3>6) Responsabilidad</h3>
+      <p>Elevadoos responderá por daños causados por dolo o negligencia propia. El hotel o recinto es responsable de las condiciones del espacio. Se excluye responsabilidad por daños indirectos hasta el máximo permitido por la ley.</p>
+
+      <h3>7) Dinámicas y actividades</h3>
+      <p>Las dinámicas están diseñadas con fines pedagógicos y deben realizarse bajo supervisión directa de un adulto responsable. Los representantes legales asumen la responsabilidad de valorar la idoneidad de la participación de los menores, eximiendo a Elevadoos de responsabilidad por daños derivados de la participación, salvo dolo o negligencia grave imputable directamente a Elevadoos.</p>
+
+      <h3>8) Disclaimer</h3>
+      <p>El contenido del evento es educativo e informativo, no constituye asesoramiento legal, fiscal ni de inversión. Cada asistente es responsable de sus decisiones.</p>
+    </div>
+    <div class="scroll-fade"></div>
+  </div>
+
+  <!-- FORMULARIO -->
+  <div id="formulario">
+
+    <!-- ADULTO 1 -->
+    <div class="section-card">
+      <div class="section-title">Adulto firmante 1</div>
+      <div class="field-group">
+        <div class="field">
+          <label for="nombre1">Nombre y apellidos *</label>
+          <input type="text" id="nombre1" placeholder="María García López" />
+        </div>
+        <div class="field">
+          <label for="dni1">DNI / Pasaporte *</label>
+          <input type="text" id="dni1" placeholder="12345678A" />
+        </div>
+      </div>
+      <div class="field-group single">
+        <div class="field">
+          <label for="email1">Email de contacto *</label>
+          <input type="email" id="email1" placeholder="familia@email.com" />
+        </div>
+      </div>
+    </div>
+
+    <!-- ADULTO 2 -->
+    <div class="section-card">
+      <div class="section-title">Adulto firmante 2 (opcional)</div>
+      <div class="field-group">
+        <div class="field">
+          <label for="nombre2">Nombre y apellidos</label>
+          <input type="text" id="nombre2" placeholder="Carlos García Martínez" />
+        </div>
+        <div class="field">
+          <label for="dni2">DNI / Pasaporte</label>
+          <input type="text" id="dni2" placeholder="87654321B" />
+        </div>
+      </div>
+    </div>
+
+    <!-- MENORES -->
+    <div class="section-card">
+      <div class="section-title">Menores a cargo</div>
+      <div id="menores-lista">
+        <!-- se añaden dinámicamente -->
+      </div>
+      <button class="add-menor-btn" onclick="addMenor()">+ Añadir menor</button>
+    </div>
+
+    <!-- FIRMAS -->
+    <div class="section-card">
+      <div class="section-title">Firma electrónica</div>
+      <div class="firma-grid">
+        <div class="firma-box">
+          <div class="firma-label">Firma adulto 1 *</div>
+          <div class="canvas-container">
+            <canvas id="canvas1" height="120"></canvas>
+            <button class="canvas-clear" onclick="clearCanvas(1)">Borrar</button>
+          </div>
+          <div class="canvas-hint">Firma con el dedo o el ratón</div>
+        </div>
+        <div class="firma-box">
+          <div class="firma-label">Firma adulto 2 (opcional)</div>
+          <div class="canvas-container">
+            <canvas id="canvas2" height="120"></canvas>
+            <button class="canvas-clear" onclick="clearCanvas(2)">Borrar</button>
+          </div>
+          <div class="canvas-hint">Firma con el dedo o el ratón</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LUGAR Y FECHA -->
+    <div class="section-card">
+      <div class="section-title">Lugar y fecha</div>
+      <div class="field-group">
+        <div class="field">
+          <label for="lugar">Ciudad</label>
+          <input type="text" id="lugar" placeholder="Barcelona" />
+        </div>
+        <div class="field">
+          <label for="fecha">Fecha</label>
+          <input type="date" id="fecha" />
+        </div>
+      </div>
+    </div>
+
+    <!-- SUBMIT -->
+    <div class="submit-area">
+      <button class="submit-btn" id="submit-btn" onclick="enviar()">
+        ✓ Firmar y enviar a Elevadoos
+      </button>
+      <div class="status-msg" id="status-msg"></div>
+      <p class="submit-note">Al firmar, aceptáis el documento completo. Recibiréis una copia por email.<br>Registro con fecha, hora y validez legal (RGPD / eIDAS).</p>
+    </div>
+
+  </div>
+
+  <!-- ÉXITO -->
+  <div class="success-screen" id="success-screen">
+    <div class="success-icon">✓</div>
+    <h2>¡Documento firmado!</h2>
+    <p>El consentimiento ha quedado registrado en Elevadoos.<br>En breve recibiréis una copia en vuestro email.</p>
+    <div class="success-meta" id="success-meta"></div>
+  </div>
+
+</div>
+
+<script>
+// ── Estado ──────────────────────────────────────────────
+const signed = { 1: false, 2: false };
+let menorCount = 0;
+
+// ── Fecha por defecto ───────────────────────────────────
+document.getElementById('fecha').valueAsDate = new Date();
+
+// ── Canvas setup ────────────────────────────────────────
+function setupCanvas(n) {
+  const canvas = document.getElementById('canvas' + n);
+  const container = canvas.parentElement;
+  canvas.width = container.offsetWidth || 280;
+  const ctx = canvas.getContext('2d');
+  ctx.strokeStyle = '#534AB7';
+  ctx.lineWidth = 2.5;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  let drawing = false, lx = 0, ly = 0;
+
+  function pos(e) {
+    const r = canvas.getBoundingClientRect();
+    const s = e.touches ? e.touches[0] : e;
+    return { x: (s.clientX - r.left) * (canvas.width / r.width), y: (s.clientY - r.top) * (canvas.height / r.height) };
+  }
+  function start(e) { e.preventDefault(); drawing = true; const p = pos(e); lx = p.x; ly = p.y; }
+  function move(e) {
+    if (!drawing) return; e.preventDefault();
+    const p = pos(e);
+    ctx.beginPath(); ctx.moveTo(lx, ly); ctx.lineTo(p.x, p.y); ctx.stroke();
+    lx = p.x; ly = p.y;
+    signed[n] = true;
+  }
+  function stop() { drawing = false; }
+  canvas.addEventListener('mousedown', start);
+  canvas.addEventListener('mousemove', move);
+  canvas.addEventListener('mouseup', stop);
+  canvas.addEventListener('mouseleave', stop);
+  canvas.addEventListener('touchstart', start, { passive: false });
+  canvas.addEventListener('touchmove', move, { passive: false });
+  canvas.addEventListener('touchend', stop);
+}
+
+window.clearCanvas = function(n) {
+  const canvas = document.getElementById('canvas' + n);
+  canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+  signed[n] = false;
+};
+
+// ── Menores ─────────────────────────────────────────────
+window.addMenor = function() {
+  menorCount++;
+  const id = menorCount;
+  const lista = document.getElementById('menores-lista');
+  const div = document.createElement('div');
+  div.className = 'menor-card';
+  div.id = 'menor-' + id;
+  div.innerHTML = `
+    <button class="menor-remove" onclick="document.getElementById('menor-${id}').remove()" title="Eliminar">×</button>
+    <div class="field-group" style="margin-bottom:0.75rem;">
+      <div class="field">
+        <label>Nombre y apellidos del menor</label>
+        <input type="text" placeholder="Ana García López" id="menor-nombre-${id}" />
+      </div>
+      <div class="field">
+        <label>Fecha de nacimiento</label>
+        <input type="date" id="menor-fnac-${id}" />
+      </div>
+    </div>
+    <div class="auth-row" style="margin-bottom:0.5rem;">
+      <span class="auth-label">Autorizo foto:</span>
+      <div class="auth-btns">
+        <button class="auth-btn" id="foto-si-${id}" onclick="toggleAuth(${id},'foto','si')">Sí</button>
+        <button class="auth-btn" id="foto-no-${id}" onclick="toggleAuth(${id},'foto','no')">No</button>
+      </div>
+    </div>
+    <div class="auth-row">
+      <span class="auth-label">Autorizo vídeo/voz:</span>
+      <div class="auth-btns">
+        <button class="auth-btn" id="video-si-${id}" onclick="toggleAuth(${id},'video','si')">Sí</button>
+        <button class="auth-btn" id="video-no-${id}" onclick="toggleAuth(${id},'video','no')">No</button>
+      </div>
+    </div>`;
+  lista.appendChild(div);
+};
+
+window.toggleAuth = function(id, tipo, val) {
+  const si = document.getElementById(tipo + '-si-' + id);
+  const no = document.getElementById(tipo + '-no-' + id);
+  si.className = 'auth-btn' + (val === 'si' ? ' si' : '');
+  no.className = 'auth-btn' + (val === 'no' ? ' no' : '');
+};
+
+// ── Recoger menores ─────────────────────────────────────
+function getMenores() {
+  const resultado = [];
+  document.querySelectorAll('.menor-card').forEach(card => {
+    const id = card.id.replace('menor-', '');
+    const nombre = document.getElementById('menor-nombre-' + id)?.value || '';
+    const fnac = document.getElementById('menor-fnac-' + id)?.value || '';
+    const fotoSi = document.getElementById('foto-si-' + id)?.classList.contains('si');
+    const videoSi = document.getElementById('video-si-' + id)?.classList.contains('si');
+    const fotoNo = document.getElementById('foto-no-' + id)?.classList.contains('no');
+    const videoNo = document.getElementById('video-no-' + id)?.classList.contains('no');
+    resultado.push({
+      nombre,
+      fnac,
+      foto: fotoSi ? 'SÍ' : fotoNo ? 'NO' : 'Sin indicar',
+      video: videoSi ? 'SÍ' : videoNo ? 'NO' : 'Sin indicar'
+    });
+  });
+  return resultado;
+}
+
+// ── Firma imagen base64 ─────────────────────────────────
+function getFirmaBase64(n) {
+  return signed[n] ? document.getElementById('canvas' + n).toDataURL('image/png') : '';
+}
+
+// ── Enviar a Google Sheets ──────────────────────────────
+window.enviar = async function() {
+  const nombre1 = document.getElementById('nombre1').value.trim();
+  const dni1 = document.getElementById('dni1').value.trim();
+  const email1 = document.getElementById('email1').value.trim();
+
+  if (!nombre1 || !dni1 || !email1) {
+    mostrarStatus('Por favor, completa el nombre, DNI y email del adulto 1.', 'error');
+    return;
+  }
+  if (!email1.includes('@')) {
+    mostrarStatus('Por favor, introduce un email válido.', 'error');
+    return;
+  }
+  if (!signed[1]) {
+    mostrarStatus('Por favor, añade la firma del adulto 1.', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+  mostrarStatus('Registrando el documento... un momento.', 'loading');
+
+  const menores = getMenores();
+  const ahora = new Date();
+  const timestamp = ahora.toLocaleString('es-ES');
+
+  const datos = {
+    timestamp,
+    nombre1,
+    dni1,
+    email1,
+    nombre2: document.getElementById('nombre2').value.trim(),
+    dni2: document.getElementById('dni2').value.trim(),
+    lugar: document.getElementById('lugar').value.trim(),
+    fecha: document.getElementById('fecha').value,
+    menores: JSON.stringify(menores),
+    firma1: getFirmaBase64(1),
+    firma2: getFirmaBase64(2)
+  };
+
+  // ── AQUÍ VA LA URL DE TU GOOGLE APPS SCRIPT ──
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwC6zgP-5NX80ySffQq48_vLLHJ6URIF0l2-GB4uuRbJWRZ0zwRwS39TSb_Hy0ZX2oQog/exec';
+
+  try {
+    if (SCRIPT_URL === 'TU_GOOGLE_APPS_SCRIPT_URL_AQUI') {
+      // MODO DEMO: simula el envío
+      await new Promise(r => setTimeout(r, 1500));
+      mostrarExito(datos);
+      return;
+    }
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(datos)
+    });
+    mostrarExito(datos);
+  } catch (e) {
+    mostrarStatus('Error al enviar. Por favor, inténtalo de nuevo.', 'error');
+    btn.disabled = false;
+    btn.textContent = '✓ Firmar y enviar a Elevadoos';
+  }
+};
+
+function mostrarStatus(msg, tipo) {
+  const el = document.getElementById('status-msg');
+  el.textContent = msg;
+  el.className = 'status-msg ' + tipo;
+}
+
+function mostrarExito(datos) {
+  document.getElementById('formulario').style.display = 'none';
+  const screen = document.getElementById('success-screen');
+  screen.style.display = 'block';
+  document.getElementById('success-meta').innerHTML = `
+    <strong>Firmante:</strong> ${datos.nombre1}<br>
+    <strong>Email:</strong> ${datos.email1}<br>
+    <strong>Fecha y hora:</strong> ${datos.timestamp}<br>
+    <strong>Registro:</strong> Guardado en Elevadoos ✓
+  `;
+}
+
+// ── Init ─────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  setupCanvas(1);
+  setupCanvas(2);
+  addMenor();
+});
+window.addEventListener('resize', () => {
+  setupCanvas(1);
+  setupCanvas(2);
+});
+</script>
+</body>
+</html>
